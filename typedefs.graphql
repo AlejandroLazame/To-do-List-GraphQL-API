@@ -1,0 +1,78 @@
+enum UserRoles {
+    ADMIN
+    USER
+}
+
+enum TaskStatus {
+    DONE
+    TODO
+}
+
+enum TaskCategories {
+    CLEAN
+    STUDY
+    HEALTH
+    SHOP
+    ANY
+}
+
+input AddTaskInput {
+    title: String!
+    description: String
+    category: TaskCategories
+}
+
+input AddUserInput {
+    name: String!
+    email: String!
+    password: String!
+    role: UserRoles
+}
+
+input AuthUserInput {
+    email: String!
+    password: String!
+}
+
+type Task {
+    _id: ID!
+    title: String!
+    description: String
+    status: TaskStatus!
+    category: TaskCategories!
+    createdBy: User!
+}
+
+type User {
+    _id: ID!
+    name: String!
+    email: String!
+    role: UserRoles!
+    password: String!
+    tasks: [Task!]!
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
+
+type Query {
+    Tasks(_id: ID): [Task!]!
+    Users(email: String): [User!]!
+    me: User!
+}
+
+type Mutation {
+    addTask(
+        input: AddTaskInput!
+    ) : Task!
+
+    addUser(
+        input: AddUserInput!
+    ) : User!
+
+    authUser(
+        input: AuthUserInput!
+    ): AuthPayload!
+}
