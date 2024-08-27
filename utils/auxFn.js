@@ -1,7 +1,5 @@
 const findBy = async (value, field='id', db) => {
-    console.log(db);
-    
-    const users = await db.collection('users')
+const users = await db.collection('users')
         .find({
             [field]: value
         })

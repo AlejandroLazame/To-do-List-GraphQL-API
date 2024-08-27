@@ -14,7 +14,7 @@ const newUser = object({
         .test('is-mail-valid','Ja existe um usuario com esse e-mail', async (value, ctx)=>{
             const { db } = ctx.options.context;
             const user = await findBy(value, 'email', db);
-            return user.legth <= 0
+            return user.length === 0;
         })
 })
 

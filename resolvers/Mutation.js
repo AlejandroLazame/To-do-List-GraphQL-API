@@ -7,18 +7,16 @@ module.exports = {
         try {
             const newUser = {
                     ...args.input
-                }
-
+                }                
             if(newUser.hasOwnProperty('role') === false){
                 newUser.role = 'USER'
             }
-            
             const { insertedId } = await db.collection('users').insertOne(newUser);
-            newUser.id = insertedId[0];
+            newUser._id = insertedId;            
             return newUser;
         } catch (error) {
-            console.error(JSON.stringify(error.message))
-            return JSON.stringify(error.message)
+            console.error(JSON.stringify(error))
+            return error
         }
     },
 

@@ -6,7 +6,7 @@ let db;
 const connect = async () => {
     try{
         console.log('Attempting connect MONGO_DB...');
-        const client = await MongoClient.connect(MONGO_DB, { useNewUrlParser: true});
+        const client = await MongoClient.connect(MONGO_DB);
         console.log('Connection established ✅');
         db = client.db();
     }catch(error){
