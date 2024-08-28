@@ -29,6 +29,13 @@ input AddUserInput {
     role: UserRoles
 }
 
+input UpdateUserInput {
+    _id: ID!
+    name: String
+    email: String
+    password: String 
+}
+
 input AuthUserInput {
     email: String!
     password: String!
@@ -72,6 +79,10 @@ type Mutation {
         input: AddUserInput!
     ) : User!
 
+    updateUser(
+        input: UpdateUserInput!
+    ): User!
+    
     authUser(
         input: AuthUserInput!
     ): AuthPayload!

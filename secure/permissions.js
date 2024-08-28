@@ -39,6 +39,7 @@ const permissions = shield({
         '*': deny,
         addTask: isAuthenticated,
         addUser: isNotRegistered,
+        updateUser: and(isAuthenticated, isAdmin),
         authUser: allow
     }
 },{
