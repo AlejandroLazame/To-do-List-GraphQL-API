@@ -22,6 +22,18 @@ input AddTaskInput {
     category: TaskCategories
 }
 
+input UpdateTaskInput {
+    _id: ID!
+    title: String
+    description: String
+    status: TaskStatus
+    category: TaskCategories   
+}
+
+input DeleteTaskInput {
+    _id: ID!
+}
+
 input AddUserInput {
     name: String!
     email: String!
@@ -48,6 +60,7 @@ type Task {
     status: TaskStatus!
     category: TaskCategories!
     createdBy: User!
+    updatedBy: User!
 }
 
 type User {
@@ -74,6 +87,14 @@ type Mutation {
     addTask(
         input: AddTaskInput!
     ) : Task!
+
+    updateTask(
+        input: UpdateTaskInput!
+    ):Task!
+
+    deleteTask(
+        input: DeleteTaskInput!
+    ): Task!
 
     addUser(
         input: AddUserInput!

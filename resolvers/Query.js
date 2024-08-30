@@ -29,17 +29,20 @@ module.exports = {
         },
         me: (_,__, { db, currentUser }) =>  
             db.collection('users')
-                .findOne({email: currentUser.email})
+                .findOne({_id: new ObjectId(currentUser._id)})
     },
     User: {
         tasks: async (_, args, { db, currentUser }) =>
             db.collection('tasks')
-                .find({createdBy: currentUser.email})
+                .find({createdBy: new ObjectId(currentUser._id)})
                 .toArray()
     },
     Task: {
         createdBy: async (parent , args, { db, currentUser }) =>             
             db.collection('users')
-                .findOne({ email: parent.createdBy })
+                .findOne({ _id: new ObjectId(parent.createdBy)}),
+        updatedBy: async (parent , args, { db, currentUser }) =>             
+            db.collection('users')
+                .findOne({ _id: new ObjectId(parent.updatedBy)})
     },
 }
