@@ -1,6 +1,6 @@
-const findBy = async (value, field='id', db) => {
+const findBy = async (value, field='id', db, table='users') => {
     const users = await db
-        .collection('users')
+        .collection(table)
         .find({
             [field]: value
         })

@@ -5,7 +5,7 @@ const { ObjectId } = require('mongodb');
 
 module.exports = {
     //Funcao para cadastrar um novo usuario
-    async addUser(parent, args, { db }) {
+    async addUser (parent, args, { db }) {
         try {
             const newUser = {
                     ...args.input
@@ -21,9 +21,8 @@ module.exports = {
             return error
         }
     },
-
     //Funcao para atualizar os dados de um usuario
-    async updateUser(parent, args, { db }) {
+    async updateUser (parent, args, { db }) {
         const lastestUserInfo = {};
         for(const key in args.input){
             if(args.input.hasOwnProperty(key) && args.input[key] !== null){
@@ -37,23 +36,49 @@ module.exports = {
         const user = await findBy(lastestUserInfo._id, '_id', db);      
         return user[0];
     },
+    //Funcao para deletar uma Task
+    async deleteTask (parent, args, { db }) {
+        const _id = new ObjectId(args.input._id);
+        const { acknowledged } = await db.collection('tasks')
+            .deleteOne({_id: _id});
+        const task = await findBy(_id, '_id', db, 'tasks');
+        return acknowledged && task[0];
+    },
     //Funcao para adicionar uma nova tarefa
-    async addTask(parent, args, { db, currentUser }) {
-        const newTask = {
-            createdBy: currentUser.email,
-            status: 'TODO',
-            ...args.input
+    async addTask (parent, args, { db, currentUser }) {
+        try {
+            const newTask = {
+                createdBy: new ObjectId(currentUser._id),
+                updatedBy: new ObjectId(currentUser._id),
+                status: 'TODO',
+                ...args.input
+            }
+            const { insertedId } = await db.collection('tasks').insertOne(newTask);            
+            newTask._id = insertedId[0];
+            return newTask;
+        } catch (error) {
+            console.error(error);
+            return error
         }
-        const { insertedId } = await db.collection('tasks').insertOne(newTask);
-        newTask.id = insertedId[0];
-        return newTask;
     },
     //Funcao para atualizar uma tarefa
-    /* async updateTask(parent, args, { db }) {
-
-    }, */
+    async updateTask (parent, args, { db }) {
+        console.log(args.input);
+        
+        const lastestTaskInfo = {};
+        for(const key in args.input){
+            if(args.input.hasOwnProperty(key) && args.input[key] !== null){
+                lastestTaskInfo[key] = args.input[key];
+            }
+        }
+        lastestTaskInfo._id = new ObjectId(args.input._id);        
+        await db.collection('tasks')
+            .updateOne({ _id: lastestTaskInfo._id}, {$set: lastestTaskInfo}, { upsert: false});
+        const task = await findBy(lastestTaskInfo._id, '_id', db, 'tasks');        
+        return task[0];
+    },
     //Funcao para autenticar o usuario no login com JWT Token
-    async authUser(parent, args, { db }) {
+    async authUser (parent, args, { db }) {
         let {
             access_token,
             name, 

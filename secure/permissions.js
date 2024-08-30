@@ -38,6 +38,7 @@ const permissions = shield({
     Mutation: {
         '*': deny,
         addTask: isAuthenticated,
+        updateTask: isAuthenticated,
         addUser: isNotRegistered,
         updateUser: and(isAuthenticated, isAdmin),
         authUser: allow

@@ -16,12 +16,9 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
         typeDefs,
         resolvers
     })
-
     const schemaWithPermissions = applyMiddleware(schema, permissions);
-
     const app = express();
     const db = await connect();
-
     app.all('/graphql', createHandler({ 
         schema: schemaWithPermissions,
         context: async req => {
@@ -32,11 +29,9 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
             return { db, currentUser };
         }
     }));
-    
     app.get('/playground', (_req, res) => {
         res.type('html')
         res.end(ruruHTML({ endpoint: '/graphql'}))
     })
-
     app.listen(4000, ()=> console.log('🤖 Server is running ou http://localhost:4000/playground'));
 })();
