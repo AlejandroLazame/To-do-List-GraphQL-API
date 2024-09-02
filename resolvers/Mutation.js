@@ -39,10 +39,9 @@ module.exports = {
     //Funcao para deletar uma Task
     async deleteTask (parent, args, { db }) {
         const _id = new ObjectId(args.input._id);
-        const { acknowledged } = await db.collection('tasks')
-            .deleteOne({_id: _id});
-        const task = await findBy(_id, '_id', db, 'tasks');
-        return acknowledged && task[0];
+        const deletedTask = await db.collection('tasks')
+            .findOneAndDelete({_id: _id});
+        return deletedTask;
     },
     //Funcao para adicionar uma nova tarefa
     async addTask (parent, args, { db, currentUser }) {
@@ -58,7 +57,7 @@ module.exports = {
             return newTask;
         } catch (error) {
             console.error(error);
-            return error
+            return error;
         }
     },
     //Funcao para atualizar uma tarefa
