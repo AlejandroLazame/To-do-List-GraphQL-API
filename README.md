@@ -10,7 +10,6 @@ Uma API GraphQL para gerenciar uma lista de tarefas, desenvolvida para demonstra
 - [Uso](#uso)
 - [Endpoints](#endpoints)
 - [Contribuição](#contribuição)
-- [Licença](#licença)
 
 ## Sobre
 
@@ -139,3 +138,34 @@ Depois de iniciar o servidor, você pode interagir com a API GraphQL através da
       }
     }
     ```
+## Contribuição
+
+Agradecemos contribuições para melhorar esta API GraphQL da lista de tarefas! Seja corrigindo bugs, adicionando novas funcionalidades ou melhorando a documentação, sua ajuda é bem-vinda.
+
+### Como Contribuir
+
+1. **Faça um fork do repositório**: Clique no botão "Fork" no canto superior direito desta página do repositório.
+2. **Clone o seu fork**:
+  ```bash
+   git clone https://github.com/seu-usuario/To-do-List-GraphQL-API.git
+  ```
+3. **Crie uma nova branch**:
+  ```bash
+    git checkout -b feature/nome-da-sua-feature
+  ```
+4. **Faça suas alterações**: Implemente a funcionalidade, correção ou melhoria na documentação.
+5. **Faça o commit das suas alterações**:
+  ```bash
+    git commit -m "Adicione uma mensagem descritiva aqui"
+  ```
+6. **Envie para o seu repositório**:
+  ```bash
+    git push origin feature/nome-da-sua-feature
+  ```
+7. **Crie um Pull Request**: Abra um pull request da sua branch para a branch main do repositório original. Certifique-se de fornecer uma descrição clara das suas alterações.
+
+## Diretrizes para Contribuição
+- Certifique-se de que seu código segue o estilo e as convenções existentes no projeto.
+- Escreva mensagens de commit claras e concisas.
+- Se estiver adicionando uma nova funcionalidade, atualize a documentação conforme necessário.
+- Seja receptivo ao feedback das revisões de código.
